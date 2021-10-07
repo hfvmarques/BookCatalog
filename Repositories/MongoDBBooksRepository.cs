@@ -11,6 +11,7 @@ namespace BookCatalog.Repositores
     private const string databaseName = "bookCatalog";
     private const string collectionName = "books";
     private readonly IMongoCollection<Book> booksCollection;
+    private readonly FilterDefinitionBuilder<Book> filterBuilder = Builders<Book>.Filter;
 
     public MongoDBBooksRepository(IMongoClient mongoClient)
     {
@@ -30,7 +31,8 @@ namespace BookCatalog.Repositores
 
     public Book GetBook(Guid id)
     {
-      throw new NotImplementedException();
+      var filter = filterBuilder.Eq(book => book.Id, id);
+      return booksCollection.Find(filter).SingleOrDefault();
     }
 
     public IEnumerable<Book> GetBooks()
@@ -40,7 +42,8 @@ namespace BookCatalog.Repositores
 
     public void UpdateBook(Book book)
     {
-      throw new NotImplementedException();
+      var filter = filterBuilder.Eq(existingBook => existingBook.Id, book.Id);
+      booksCollection.ReplaceOne(filter, book);
     }
   }
 }
