@@ -42,7 +42,10 @@ namespace BookCatalog
 
       services.AddSingleton<IBooksRepository, MongoDBBooksRepository>();
 
-      services.AddControllers();
+      services.AddControllers(options =>
+      {
+        options.SuppressAsyncSuffixInActionNames = false;
+      });
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookCatalog", Version = "v1" });

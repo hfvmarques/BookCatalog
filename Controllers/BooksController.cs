@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BookCatalog.DTOs;
 using BookCatalog.Entities;
 using BookCatalog.Repositores;
@@ -21,17 +22,18 @@ namespace BookCatalog.Controllers
 
     // GET /books
     [HttpGet]
-    public IEnumerable<BookDTO> GetBooks()
+    public async Task<IEnumerable<BookDTO>> GetBooksAsync()
     {
-      var books = repository.GetBooks().Select(book => book.AsDTO());
+      var books = (await repository.GetBooksAsync())
+                  .Select(book => book.AsDTO());
       return books;
     }
 
     // GET /books/id
     [HttpGet("{id}")]
-    public ActionResult<BookDTO> GetBook(Guid id)
+    public async Task<ActionResult<BookDTO>> GetBookAsync(Guid id)
     {
-      var book = repository.GetBook(id);
+      var book = await repository.GetBookAsync(id);
 
       if (book is null)
       {
@@ -43,7 +45,7 @@ namespace BookCatalog.Controllers
 
     // POST /books
     [HttpPost]
-    public ActionResult<BookDTO> CreateBook(CreateBookDTO bookDTO)
+    public async Task<ActionResult<BookDTO>> CreateBookAsync(CreateBookDTO bookDTO)
     {
       Book book = new()
       {
@@ -55,16 +57,16 @@ namespace BookCatalog.Controllers
         Edition = bookDTO.Edition
       };
 
-      repository.CreateBook(book);
+      await repository.CreateBookAsync(book);
 
-      return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book.AsDTO());
+      return CreatedAtAction(nameof(GetBookAsync), new { id = book.Id }, book.AsDTO());
     }
 
     // PUT /items/{id}
     [HttpPut("{id}")]
-    public ActionResult UpdateBook(Guid id, UpdateBookDTO bookDTO)
+    public async Task<ActionResult> UpdateBookAsync(Guid id, UpdateBookDTO bookDTO)
     {
-      var existingBook = repository.GetBook(id);
+      var existingBook = await repository.GetBookAsync(id);
 
       if (existingBook is null)
       {
@@ -80,23 +82,23 @@ namespace BookCatalog.Controllers
         Edition = bookDTO.Edition
       };
 
-      repository.UpdateBook(updatedBook);
+      await repository.UpdateBookAsync(updatedBook);
 
       return NoContent();
     }
 
     //DELETE /books/{id}
     [HttpDelete("{id}")]
-    public ActionResult DeleteBook(Guid id)
+    public async Task<ActionResult> DeleteBookAsync(Guid id)
     {
-      var existingBook = repository.GetBook(id);
+      var existingBook = await repository.GetBookAsync(id);
 
       if (existingBook is null)
       {
         return NotFound();
       }
 
-      repository.DeleteBook(id);
+      await repository.DeleteBookAsync(id);
 
       return NoContent();
     }
