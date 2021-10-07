@@ -47,5 +47,16 @@ namespace BookCatalog.Repositores
     {
       return books.Where(book => book.Id == id).SingleOrDefault();
     }
+
+    public void CreateBook(Book book)
+    {
+      books.Add(book);
+    }
+
+    public void UpdateBook(Book book)
+    {
+      var index = books.FindIndex(existingBook => existingBook.Id == book.Id);
+      books[index] = book;
+    }
   }
 }

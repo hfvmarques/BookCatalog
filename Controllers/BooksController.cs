@@ -40,5 +40,49 @@ namespace BookCatalog.Controllers
 
       return book.AsDTO();
     }
+
+    // POST /books
+    [HttpPost]
+    public ActionResult<BookDTO> CreateBook(CreateBookDTO bookDTO)
+    {
+      Book book = new()
+      {
+        Id = Guid.NewGuid(),
+        Title = bookDTO.Title,
+        Author = bookDTO.Author,
+        PublishingCompany = bookDTO.PublishingCompany,
+        PublicationYear = bookDTO.PublicationYear,
+        Edition = bookDTO.Edition
+      };
+
+      repository.CreateBook(book);
+
+      return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book.AsDTO());
+    }
+
+    // PUT /items/{id}
+    [HttpPut("{id}")]
+    public ActionResult UpdateBook(Guid id, UpdateBookDTO bookDTO)
+    {
+      var existingBook = repository.GetBook(id);
+
+      if (existingBook is null)
+      {
+        return NotFound();
+      }
+
+      Book updatedBook = existingBook with
+      {
+        Title = bookDTO.Title,
+        Author = bookDTO.Author,
+        PublishingCompany = bookDTO.PublishingCompany,
+        PublicationYear = bookDTO.PublicationYear,
+        Edition = bookDTO.Edition
+      };
+
+      repository.UpdateBook(updatedBook);
+
+      return NoContent();
+    }
   }
 }
