@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BookCatalog.Entities;
 using BookCatalog.Repositores;
@@ -22,6 +23,20 @@ namespace BookCatalog.Controllers
     {
       var books = repository.GetBooks();
       return books;
+    }
+
+    // GET /books/id
+    [HttpGet("{id}")]
+    public ActionResult<Book> GetBook(Guid id)
+    {
+      var book = repository.GetBook(id);
+
+      if (book is null)
+      {
+        return NotFound();
+      }
+
+      return book;
     }
   }
 }
