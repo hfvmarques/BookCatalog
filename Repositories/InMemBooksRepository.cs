@@ -5,7 +5,7 @@ using BookCatalog.Entities;
 
 namespace BookCatalog.Repositores
 {
-  public class InMemBooksRepository
+  public class InMemBooksRepository : IBooksRepository
   {
     private readonly List<Book> books = new()
     {
