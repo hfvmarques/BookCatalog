@@ -26,7 +26,8 @@ namespace BookCatalog.Repositores
 
     public void DeleteBook(Guid id)
     {
-      throw new NotImplementedException();
+      var filter = filterBuilder.Eq(book => book.Id, id);
+      booksCollection.DeleteOne(filter);
     }
 
     public Book GetBook(Guid id)
