@@ -58,5 +58,11 @@ namespace BookCatalog.Repositores
       var index = books.FindIndex(existingBook => existingBook.Id == book.Id);
       books[index] = book;
     }
+
+    public void DeleteBook(Guid id)
+    {
+      var index = books.FindIndex(existingBook => existingBook.Id == id);
+      books.RemoveAt(index);
+    }
   }
 }
