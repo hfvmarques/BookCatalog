@@ -21,17 +21,17 @@ spec:
               cpu: "500m"
           ports:
             - containerPort: 27017
-      env:
-        - name: MONGO_INITDB_ROOT_USERNAME
-          value: "mongoadmin"
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: bookcatalog-secrets
-              key: mongodb-password
-      volumeMounts:
-        - mountPath: /data/db
-          name: data
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: "mongoadmin"
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bookcatalog-secrets
+                  key: mongodb-password
+          volumeMounts:
+            - mountPath: /data/db
+              name: data
   volumeClaimTemplates:
     - metadata:
         name: data
