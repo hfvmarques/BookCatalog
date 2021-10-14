@@ -6,6 +6,7 @@ using BookCatalog.DTOs;
 using BookCatalog.Entities;
 using BookCatalog.Repositores;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace BookCatalog.Controllers
 {
@@ -14,10 +15,12 @@ namespace BookCatalog.Controllers
   public class BooksController : ControllerBase
   {
     private readonly IBooksRepository repository;
+    private readonly ILogger<BooksController> logger;
 
-    public BooksController(IBooksRepository repository)
+    public BooksController(IBooksRepository repository, ILogger<BooksController> logger)
     {
       this.repository = repository;
+      this.logger = logger;
     }
 
     // GET /books
@@ -26,6 +29,8 @@ namespace BookCatalog.Controllers
     {
       var books = (await repository.GetBooksAsync())
                   .Select(book => book.AsDTO());
+
+      logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")}: Retrieved {books.Count()} books.");
       return books;
     }
 

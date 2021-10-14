@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: bookcatalog
-          image: hfvmarques/bookcatalog:v1
+          image: hfvmarques/bookcatalog:v2
           resources:
             limits:
               memory: "128Mi"
