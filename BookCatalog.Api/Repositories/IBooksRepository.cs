@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BookCatalog.Entities;
+using BookCatalog.Api.Entities;
 
-namespace BookCatalog.Repositores
+namespace BookCatalog.Api.Repositores
 {
   public interface IBooksRepository
   {

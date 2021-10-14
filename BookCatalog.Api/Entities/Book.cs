@@ -1,8 +1,8 @@
 using System;
 
-namespace BookCatalog.DTOs
+namespace BookCatalog.Api.Entities
 {
-  public record BookDTO
+  public record Book
   {
     public Guid Id { get; init; }
     public string Title { get; init; }

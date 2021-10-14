@@ -7,7 +7,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/BookCatalog.csproj",
+        "${workspaceFolder}/BookCatalog.Api/BookCatalog.Api.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -23,7 +23,7 @@
       "type": "process",
       "args": [
         "publish",
-        "${workspaceFolder}/BookCatalog.csproj",
+        "${workspaceFolder}/BookCatalog.Api/BookCatalog.Api.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -36,7 +36,7 @@
       "args": [
         "watch",
         "run",
-        "${workspaceFolder}/BookCatalog.csproj",
+        "${workspaceFolder}/BookCatalog.Api/BookCatalog.Api.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -51,12 +51,12 @@
       "dockerBuild": {
         "tag": "bookcatalog:dev",
         "target": "base",
-        "dockerfile": "${workspaceFolder}/Dockerfile",
+        "dockerfile": "${workspaceFolder}/BookCatalog.Api/Dockerfile",
         "context": "${workspaceFolder}",
         "pull": true
       },
       "netCore": {
-        "appProject": "${workspaceFolder}/BookCatalog.csproj"
+        "appProject": "${workspaceFolder}/BookCatalog.Api/BookCatalog.Api.csproj"
       }
     },
     {
@@ -67,12 +67,12 @@
       ],
       "dockerBuild": {
         "tag": "bookcatalog:latest",
-        "dockerfile": "${workspaceFolder}/Dockerfile",
+        "dockerfile": "${workspaceFolder}/BookCatalog.Api/Dockerfile",
         "context": "${workspaceFolder}",
         "pull": true
       },
       "netCore": {
-        "appProject": "${workspaceFolder}/BookCatalog.csproj"
+        "appProject": "${workspaceFolder}/BookCatalog.Api/BookCatalog.Api.csproj"
       }
     },
     {
@@ -85,7 +85,7 @@
         "os": "Windows"
       },
       "netCore": {
-        "appProject": "${workspaceFolder}/BookCatalog.csproj",
+        "appProject": "${workspaceFolder}/BookCatalog.Api/BookCatalog.Api.csproj",
         "enableDebugging": true,
         "configureSsl": false
       }
@@ -100,7 +100,7 @@
         "os": "Windows"
       },
       "netCore": {
-        "appProject": "${workspaceFolder}/BookCatalog.csproj"
+        "appProject": "${workspaceFolder}/BookCatalog.Api/BookCatalog.Api.csproj"
       }
     }
   ]

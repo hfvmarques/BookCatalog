@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BookCatalog.Entities;
+using BookCatalog.Api.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace BookCatalog.Repositores
+namespace BookCatalog.Api.Repositores
 {
   public class MongoDBBooksRepository : IBooksRepository
   {

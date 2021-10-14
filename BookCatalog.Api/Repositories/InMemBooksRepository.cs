@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BookCatalog.Entities;
+using BookCatalog.Api.Entities;
 
-namespace BookCatalog.Repositores
+namespace BookCatalog.Api.Repositores
 {
   public class InMemBooksRepository : IBooksRepository
   {

@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BookCatalog.DTOs;
-using BookCatalog.Entities;
-using BookCatalog.Repositores;
+using BookCatalog.Api.DTOs;
+using BookCatalog.Api.Entities;
+using BookCatalog.Api.Repositores;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace BookCatalog.Controllers
+namespace BookCatalog.Api.Controllers
 {
   [ApiController]
   [Route("books")]

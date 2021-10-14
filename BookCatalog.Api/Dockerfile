@@ -6,12 +6,12 @@ ENV ASPNETCORE_URLS=http://+:80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["BookCatalog.csproj", "./"]
-RUN dotnet restore "BookCatalog.csproj"
+COPY ["BookCatalog.Api.csproj", "./"]
+RUN dotnet restore "BookCatalog.Api.csproj"
 COPY . .
-RUN dotnet publish "BookCatalog.csproj" -c Release -o /app/publish
+RUN dotnet publish "BookCatalog.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "BookCatalog.dll"]
+ENTRYPOINT ["dotnet", "BookCatalog.Api.dll"]

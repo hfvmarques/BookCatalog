@@ -4,8 +4,8 @@ using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
-using BookCatalog.Repositores;
-using BookCatalog.Settings;
+using BookCatalog.Api.Repositores;
+using BookCatalog.Api.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -22,7 +22,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 
-namespace BookCatalog
+namespace BookCatalog.Api
 {
   public class Startup
   {

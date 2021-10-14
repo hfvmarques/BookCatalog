@@ -6,15 +6,15 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/bin/Debug/net5.0/BookCatalog.dll",
+      "program": "${workspaceFolder}/BookCatalog.Api/bin/Debug/net5.0/BookCatalog.Api.dll",
       "args": [],
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/BookCatalog.Api",
       "stopAtEntry": false,
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "sourceFileMap": {
-        "/Views": "${workspaceFolder}/Views"
+        "/Views": "${workspaceFolder}/BookCatalog.Api/Views"
       }
     },
     {
@@ -28,7 +28,7 @@
       "request": "launch",
       "preLaunchTask": "docker-run: debug",
       "netCore": {
-        "appProject": "${workspaceFolder}/BookCatalog.csproj"
+        "appProject": "${workspaceFolder}/BookCatalog.Api/BookCatalog.Api.csproj"
       }
     }
   ]

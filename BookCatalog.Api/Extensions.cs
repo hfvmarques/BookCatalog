@@ -1,7 +1,7 @@
-using BookCatalog.DTOs;
-using BookCatalog.Entities;
+using BookCatalog.Api.DTOs;
+using BookCatalog.Api.Entities;
 
-namespace BookCatalog
+namespace BookCatalog.Api
 {
   public static class Extensions
   {
