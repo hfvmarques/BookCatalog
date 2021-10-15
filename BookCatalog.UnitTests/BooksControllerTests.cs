@@ -49,10 +49,7 @@ namespace BookCatalog.UnitTests
       var result = await controller.GetBookAsync(Guid.NewGuid());
 
       // Assert
-      result.Value.Should().BeEquivalentTo(
-          expectedBook,
-          options => options.ComparingByMembers<Book>()
-      );
+      result.Value.Should().BeEquivalentTo(expectedBook);
     }
 
     [Fact]
@@ -74,24 +71,19 @@ namespace BookCatalog.UnitTests
       var actualBooks = await controller.GetBooksAsync();
 
       // Assert
-      actualBooks.Should().BeEquivalentTo(
-          expectedBooks,
-          options => options.ComparingByMembers<Book>()
-      );
+      actualBooks.Should().BeEquivalentTo(expectedBooks);
     }
 
     [Fact]
     public async Task CreateBookAsync_WithBookToCreate_ReturnsCreatedBook()
     {
       // Arrange
-      var bookToCreate = new CreateBookDTO()
-      {
-        Title = Guid.NewGuid().ToString(),
-        Author = Guid.NewGuid().ToString(),
-        PublishingCompany = Guid.NewGuid().ToString(),
-        PublicationYear = rand.Next(1000, 9999),
-        Edition = rand.Next(1, 999)
-      };
+      var bookToCreate = new CreateBookDTO(
+        Guid.NewGuid().ToString(),
+        Guid.NewGuid().ToString(),
+        Guid.NewGuid().ToString(),
+        rand.Next(1000, 9999),
+        rand.Next(1, 999));
 
       var controller = new BooksController(repositoryStub.Object, loggerStub.Object);
 
@@ -117,14 +109,13 @@ namespace BookCatalog.UnitTests
       repositoryStub.Setup(repo => repo.GetBookAsync(It.IsAny<Guid>())).ReturnsAsync(existingBook);
 
       var bookId = existingBook.Id;
-      var bookToUpdate = new UpdateBookDTO()
-      {
-        Title = Guid.NewGuid().ToString(),
-        Author = Guid.NewGuid().ToString(),
-        PublishingCompany = Guid.NewGuid().ToString(),
-        PublicationYear = existingBook.PublicationYear + 5,
-        Edition = existingBook.Edition + 1
-      };
+      var bookToUpdate = new UpdateBookDTO(
+        Guid.NewGuid().ToString(),
+        Guid.NewGuid().ToString(),
+        Guid.NewGuid().ToString(),
+        existingBook.PublicationYear + 5,
+        existingBook.Edition + 1
+      );
 
       var controller = new BooksController(repositoryStub.Object, loggerStub.Object);
 

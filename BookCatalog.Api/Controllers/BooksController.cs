@@ -78,16 +78,13 @@ namespace BookCatalog.Api.Controllers
         return NotFound();
       }
 
-      Book updatedBook = existingBook with
-      {
-        Title = bookDTO.Title,
-        Author = bookDTO.Author,
-        PublishingCompany = bookDTO.PublishingCompany,
-        PublicationYear = bookDTO.PublicationYear,
-        Edition = bookDTO.Edition
-      };
+      existingBook.Title = bookDTO.Title;
+      existingBook.Author = bookDTO.Author;
+      existingBook.PublishingCompany = bookDTO.PublishingCompany;
+      existingBook.PublicationYear = bookDTO.PublicationYear;
+      existingBook.Edition = bookDTO.Edition;
 
-      await repository.UpdateBookAsync(updatedBook);
+      await repository.UpdateBookAsync(existingBook);
 
       return NoContent();
     }

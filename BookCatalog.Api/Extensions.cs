@@ -7,15 +7,13 @@ namespace BookCatalog.Api
   {
     public static BookDTO AsDTO(this Book book)
     {
-      return new BookDTO
-      {
-        Id = book.Id,
-        Title = book.Title,
-        Author = book.Author,
-        PublishingCompany = book.PublishingCompany,
-        PublicationYear = book.PublicationYear,
-        Edition = book.Edition
-      };
+      return new BookDTO(
+        book.Id,
+        book.Title,
+        book.Author,
+        book.PublishingCompany,
+        book.PublicationYear,
+        book.Edition);
     }
   }
 }
