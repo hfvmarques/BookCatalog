@@ -80,6 +80,77 @@ namespace BookCatalog.UnitTests
       );
     }
 
+    [Fact]
+    public async Task CreateBookAsync_WithBookToCreate_ReturnsCreatedBook()
+    {
+      // Arrange
+      var bookToCreate = new CreateBookDTO()
+      {
+        Title = Guid.NewGuid().ToString(),
+        Author = Guid.NewGuid().ToString(),
+        PublishingCompany = Guid.NewGuid().ToString(),
+        PublicationYear = rand.Next(1000, 9999),
+        Edition = rand.Next(1, 999)
+      };
+
+      var controller = new BooksController(repositoryStub.Object, loggerStub.Object);
+
+      // Act
+      var result = await controller.CreateBookAsync(bookToCreate);
+
+      // Assert
+      var createdBook = (result.Result as CreatedAtActionResult).Value as BookDTO;
+      bookToCreate.Should().BeEquivalentTo(
+        createdBook,
+        options => options
+          .ComparingByMembers<BookDTO>()
+          .ExcludingMissingMembers()
+      );
+      createdBook.Id.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task UpdateBookAsync_WithExistingBook_ReturnsNoContent()
+    {
+      // Arrange
+      var existingBook = CreateRandomBook();
+      repositoryStub.Setup(repo => repo.GetBookAsync(It.IsAny<Guid>())).ReturnsAsync(existingBook);
+
+      var bookId = existingBook.Id;
+      var bookToUpdate = new UpdateBookDTO()
+      {
+        Title = Guid.NewGuid().ToString(),
+        Author = Guid.NewGuid().ToString(),
+        PublishingCompany = Guid.NewGuid().ToString(),
+        PublicationYear = existingBook.PublicationYear + 5,
+        Edition = existingBook.Edition + 1
+      };
+
+      var controller = new BooksController(repositoryStub.Object, loggerStub.Object);
+
+      // Act
+      var result = await controller.UpdateBookAsync(bookId, bookToUpdate);
+
+      // Assert
+      result.Should().BeOfType<NoContentResult>();
+    }
+
+    [Fact]
+    public async Task DeleteBookAsync_WithExistingBook_ReturnsNoContent()
+    {
+      // Arrange
+      var existingBook = CreateRandomBook();
+      repositoryStub.Setup(repo => repo.GetBookAsync(It.IsAny<Guid>())).ReturnsAsync(existingBook);
+
+      var controller = new BooksController(repositoryStub.Object, loggerStub.Object);
+
+      // Act
+      var result = await controller.DeleteBookAsync(existingBook.Id);
+
+      // Assert
+      result.Should().BeOfType<NoContentResult>();
+    }
+
     private Book CreateRandomBook()
     {
       return new()
