@@ -25,12 +25,18 @@ namespace BookCatalog.Api.Controllers
 
     // GET /books
     [HttpGet]
-    public async Task<IEnumerable<BookDTO>> GetBooksAsync()
+    public async Task<IEnumerable<BookDTO>> GetBooksAsync(string title = null)
     {
       var books = (await repository.GetBooksAsync())
                   .Select(book => book.AsDTO());
 
+      if (!string.IsNullOrWhiteSpace(title))
+      {
+        books = books.Where(book => book.Title.Contains(title, StringComparison.OrdinalIgnoreCase));
+      }
+
       logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")}: Retrieved {books.Count()} books.");
+
       return books;
     }
 

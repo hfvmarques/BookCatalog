@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BookCatalog.Api.Controllers;
 using BookCatalog.Api.DTOs;
@@ -72,6 +73,34 @@ namespace BookCatalog.UnitTests
 
       // Assert
       actualBooks.Should().BeEquivalentTo(expectedBooks);
+    }
+
+    [Fact]
+    public async Task GetBooksAsync_WithMatchingBooks_ReturnsMatchingBooks()
+    {
+      // Arrange
+      var allBooks = new[]
+      {
+        new Book(){Title = "Educação"},
+        new Book(){Title = "Ensino"},
+        new Book(){Title = "Ensino de Psicologia"}
+      };
+
+      var titleToMatch = "Ensino";
+
+      repositoryStub
+        .Setup(repo => repo.GetBooksAsync())
+        .ReturnsAsync(allBooks);
+
+      var controller = new BooksController(repositoryStub.Object, loggerStub.Object);
+
+      // Act
+      IEnumerable<BookDTO> foundBooks = await controller.GetBooksAsync(titleToMatch);
+
+      // Assert
+      foundBooks.Should().OnlyContain(
+        book => book.Title == allBooks[1].Title || book.Title == allBooks[2].Title
+      );
     }
 
     [Fact]
