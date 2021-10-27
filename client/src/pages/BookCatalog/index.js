@@ -1,8 +1,9 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { FiEdit, FiTrash2 } from 'react-icons/fi'
 import './styles.css'
 import logoImage from '../../assets/logo.svg'
+import api from '../../services/api'
 
 export default function BookCatalog() {
   return (
