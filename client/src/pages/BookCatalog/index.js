@@ -19,7 +19,7 @@ export default function BookCatalog() {
 
   async function editBook(id) {
     try {
-      history.push(`NewBook/${id}`)
+      history.push(`Book/${id}`)
 
     } catch (err) {
       alert('Não foi possível editar o livro. Tente novamente.')
@@ -41,7 +41,7 @@ export default function BookCatalog() {
       <header>
         <img src={logoImage} alt="Catálogo de livros" />
         <span>Catálogo de Livros</span>
-        <Link className="button" to="/NewBook/0">Adicionar novo livro</Link>
+        <Link className="button" to="/Book/0">Adicionar novo livro</Link>
       </header>
 
       <h1>Livros Registrados</h1>

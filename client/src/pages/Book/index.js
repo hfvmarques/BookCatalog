@@ -5,7 +5,7 @@ import './styles.css'
 import api from '../../services/api'
 import logoImage from '../../assets/logo.svg'
 
-export default function NewBook() {
+export default function Book() {
 
   const { bookId } = useParams()
   const [id, setId] = useState(null)
@@ -22,7 +22,7 @@ export default function NewBook() {
     if (bookId === '0') return
 
     loadBook()
-  }, bookId)
+  })
 
   async function loadBook() {
     try {
