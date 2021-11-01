@@ -15,7 +15,16 @@ export default function BookCatalog() {
     api.get('/books').then(response => {
       setBookRepository(response.data)
     })
-  })
+  }, [])
+
+  async function editBook(id) {
+    try {
+      history.push(`NewBook/${id}`)
+
+    } catch (err) {
+      alert('Não foi possível editar o livro. Tente novamente.')
+    }
+  }
 
   async function deleteBook(id) {
     try {
@@ -32,7 +41,7 @@ export default function BookCatalog() {
       <header>
         <img src={logoImage} alt="Catálogo de livros" />
         <span>Catálogo de Livros</span>
-        <Link className="button" to="/NewBook">Adicionar novo livro</Link>
+        <Link className="button" to="/NewBook/0">Adicionar novo livro</Link>
       </header>
 
       <h1>Livros Registrados</h1>
@@ -49,10 +58,10 @@ export default function BookCatalog() {
             <p>{book.publicationYear}</p>
             <strong>Edição:</strong>
             <p>{book.edition}</p>
-            <button type="button">
+            <button onClick={() => editBook(book.id)} type="button">
               <FiEdit size={20} color="#251FC5" />
             </button>
-            <button onClick={() => deleteBook(book.id)} type="button">
+            <button onClick={() => { if (window.confirm('Tem certeza que deseja apagar este livro?')) deleteBook(book.id) }} type="button">
               <FiTrash2 size={20} color="#251FC5" />
             </button>
           </li>
