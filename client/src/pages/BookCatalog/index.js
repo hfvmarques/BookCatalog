@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { FiEdit, FiTrash2 } from 'react-icons/fi'
 import './styles.css'
@@ -6,6 +6,27 @@ import logoImage from '../../assets/logo.svg'
 import api from '../../services/api'
 
 export default function BookCatalog() {
+
+  const [bookRepository, setBookRepository] = useState([])
+
+  const history = useHistory()
+
+  useEffect(() => {
+    api.get('/books').then(response => {
+      setBookRepository(response.data)
+    })
+  })
+
+  async function deleteBook(id) {
+    try {
+      await api.delete(`/books/${id}`)
+      setBookRepository(bookRepository.filter(book => book.id !== id))
+
+    } catch (err) {
+      alert('Não foi possível apagar o livro. Tente novamente.')
+    }
+  }
+
   return (
     <div className="bookCatalog-container">
       <header>
@@ -13,80 +34,29 @@ export default function BookCatalog() {
         <span>Catálogo de Livros</span>
         <Link className="button" to="/NewBook">Adicionar novo livro</Link>
       </header>
+
       <h1>Livros Registrados</h1>
       <ul>
-        <li>
-          <strong>Título:</strong>
-          <p>Adams Óbvio</p>
-          <strong>Autor:</strong>
-          <p>Robert R. Updegraff</p>
-          <strong>Editora:</strong>
-          <p>Faro Editorial</p>
-          <strong>Ano de Publicação:</strong>
-          <p>2015</p>
-          <strong>Edição:</strong>
-          <p>1ª</p>
-          <button type="button">
-            <FiEdit size={20} color="#251FC5" />
-          </button>
-          <button type="button">
-            <FiTrash2 size={20} color="#251FC5" />
-          </button>
-        </li>
-        <li>
-          <strong>Título:</strong>
-          <p>Adams Óbvio</p>
-          <strong>Autor:</strong>
-          <p>Robert R. Updegraff</p>
-          <strong>Editora:</strong>
-          <p>Faro Editorial</p>
-          <strong>Ano de Publicação:</strong>
-          <p>2015</p>
-          <strong>Edição:</strong>
-          <p>1ª</p>
-          <button type="button">
-            <FiEdit size={20} color="#251FC5" />
-          </button>
-          <button type="button">
-            <FiTrash2 size={20} color="#251FC5" />
-          </button>
-        </li>
-        <li>
-          <strong>Título:</strong>
-          <p>Adams Óbvio</p>
-          <strong>Autor:</strong>
-          <p>Robert R. Updegraff</p>
-          <strong>Editora:</strong>
-          <p>Faro Editorial</p>
-          <strong>Ano de Publicação:</strong>
-          <p>2015</p>
-          <strong>Edição:</strong>
-          <p>1ª</p>
-          <button type="button">
-            <FiEdit size={20} color="#251FC5" />
-          </button>
-          <button type="button">
-            <FiTrash2 size={20} color="#251FC5" />
-          </button>
-        </li>
-        <li>
-          <strong>Título:</strong>
-          <p>Adams Óbvio</p>
-          <strong>Autor:</strong>
-          <p>Robert R. Updegraff</p>
-          <strong>Editora:</strong>
-          <p>Faro Editorial</p>
-          <strong>Ano de Publicação:</strong>
-          <p>2015</p>
-          <strong>Edição:</strong>
-          <p>1ª</p>
-          <button type="button">
-            <FiEdit size={20} color="#251FC5" />
-          </button>
-          <button type="button">
-            <FiTrash2 size={20} color="#251FC5" />
-          </button>
-        </li>
+        {bookRepository.sort((a, b) => a.title > b.title ? 1 : -1).map(book => (
+          <li key={book.id}>
+            <strong>Título:</strong>
+            <p>{book.title}</p>
+            <strong>Autor:</strong>
+            <p>{book.author}</p>
+            <strong>Editora:</strong>
+            <p>{book.publishingCompany}</p>
+            <strong>Ano de Publicação:</strong>
+            <p>{book.publicationYear}</p>
+            <strong>Edição:</strong>
+            <p>{book.edition}</p>
+            <button type="button">
+              <FiEdit size={20} color="#251FC5" />
+            </button>
+            <button onClick={() => deleteBook(book.id)} type="button">
+              <FiTrash2 size={20} color="#251FC5" />
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
   )
