@@ -7,7 +7,6 @@ using BookCatalog.Api.Entities;
 using BookCatalog.Api.Repositores;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -17,7 +16,6 @@ namespace BookCatalog.UnitTests
   {
 
     private readonly Mock<IBooksRepository> repositoryStub = new();
-    private readonly Mock<ILogger<BooksController>> loggerStub = new();
     private readonly Random rand = new();
 
     // name convention UnitOfWork_StateUnderTest_ExpectedBehavior
@@ -27,7 +25,7 @@ namespace BookCatalog.UnitTests
       // Arrange
       repositoryStub.Setup(repo => repo.GetBookAsync(It.IsAny<Guid>())).ReturnsAsync((Book)null);
 
-      var controller = new BooksController(repositoryStub.Object, loggerStub.Object);
+      var controller = new BooksController(repositoryStub.Object);
 
       // Act
       var result = await controller.GetBookAsync(Guid.NewGuid());
@@ -44,7 +42,7 @@ namespace BookCatalog.UnitTests
 
       repositoryStub.Setup(repo => repo.GetBookAsync(It.IsAny<Guid>())).ReturnsAsync(expectedBook);
 
-      var controller = new BooksController(repositoryStub.Object, loggerStub.Object);
+      var controller = new BooksController(repositoryStub.Object);
 
       // Act
       var result = await controller.GetBookAsync(Guid.NewGuid());
@@ -66,7 +64,7 @@ namespace BookCatalog.UnitTests
 
       repositoryStub.Setup(repo => repo.GetBooksAsync()).ReturnsAsync(expectedBooks);
 
-      var controller = new BooksController(repositoryStub.Object, loggerStub.Object);
+      var controller = new BooksController(repositoryStub.Object);
 
       // Act
       var actualBooks = await controller.GetBooksAsync();
@@ -81,25 +79,25 @@ namespace BookCatalog.UnitTests
       // Arrange
       var allBooks = new[]
       {
-        new Book(){Title = "Educação"},
-        new Book(){Title = "Ensino"},
-        new Book(){Title = "Ensino de Psicologia"}
+        new Book(){Subject = "Educação"},
+        new Book(){Subject = "Ensino"},
+        new Book(){Subject = "Ensino de Psicologia"}
       };
 
-      var titleToMatch = "Ensino";
+      var subjectToMatch = "Ensino";
 
       repositoryStub
         .Setup(repo => repo.GetBooksAsync())
         .ReturnsAsync(allBooks);
 
-      var controller = new BooksController(repositoryStub.Object, loggerStub.Object);
+      var controller = new BooksController(repositoryStub.Object);
 
       // Act
-      IEnumerable<BookDTO> foundBooks = await controller.GetBooksAsync(titleToMatch);
+      IEnumerable<BookDTO> foundBooks = await controller.GetBooksAsync(subjectToMatch);
 
       // Assert
       foundBooks.Should().OnlyContain(
-        book => book.Title == allBooks[1].Title || book.Title == allBooks[2].Title
+        book => book.Subject == allBooks[1].Subject || book.Subject == allBooks[2].Subject
       );
     }
 
@@ -112,9 +110,10 @@ namespace BookCatalog.UnitTests
         Guid.NewGuid().ToString(),
         Guid.NewGuid().ToString(),
         rand.Next(1000, 9999),
-        rand.Next(1, 999));
+        rand.Next(1, 999),
+        Guid.NewGuid().ToString());
 
-      var controller = new BooksController(repositoryStub.Object, loggerStub.Object);
+      var controller = new BooksController(repositoryStub.Object);
 
       // Act
       var result = await controller.CreateBookAsync(bookToCreate);
@@ -143,10 +142,11 @@ namespace BookCatalog.UnitTests
         Guid.NewGuid().ToString(),
         Guid.NewGuid().ToString(),
         existingBook.PublicationYear + 5,
-        existingBook.Edition + 1
+        existingBook.Edition + 1,
+        Guid.NewGuid().ToString()
       );
 
-      var controller = new BooksController(repositoryStub.Object, loggerStub.Object);
+      var controller = new BooksController(repositoryStub.Object);
 
       // Act
       var result = await controller.UpdateBookAsync(bookId, bookToUpdate);
@@ -162,7 +162,7 @@ namespace BookCatalog.UnitTests
       var existingBook = CreateRandomBook();
       repositoryStub.Setup(repo => repo.GetBookAsync(It.IsAny<Guid>())).ReturnsAsync(existingBook);
 
-      var controller = new BooksController(repositoryStub.Object, loggerStub.Object);
+      var controller = new BooksController(repositoryStub.Object);
 
       // Act
       var result = await controller.DeleteBookAsync(existingBook.Id);
@@ -180,7 +180,8 @@ namespace BookCatalog.UnitTests
         Author = Guid.NewGuid().ToString(),
         PublishingCompany = Guid.NewGuid().ToString(),
         PublicationYear = rand.Next(1000, 9999),
-        Edition = rand.Next(1, 999)
+        Edition = rand.Next(1, 999),
+        Subject = Guid.NewGuid().ToString()
       };
     }
   }

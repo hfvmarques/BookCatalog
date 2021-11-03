@@ -9,20 +9,23 @@ namespace BookCatalog.Api.DTOs
     string Author,
     string PublishingCompany,
     int PublicationYear,
-    int Edition
+    int Edition,
+    string Subject
     );
   public record CreateBookDTO(
     [Required] string Title,
     [Required] string Author,
     [Required] string PublishingCompany,
     [Range(1, 9999)] int PublicationYear,
-    [Range(1, 999)] int Edition
+    [Range(1, 999)] int Edition,
+    [Required] string Subject
     );
   public record UpdateBookDTO(
   [Required] string Title,
   [Required] string Author,
   [Required] string PublishingCompany,
   [Range(1, 9999)] int PublicationYear,
-  [Range(1, 999)] int Edition
+  [Range(1, 999)] int Edition,
+  [Required] string Subject
   );
 }

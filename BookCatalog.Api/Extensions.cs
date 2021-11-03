@@ -13,7 +13,8 @@ namespace BookCatalog.Api
         book.Author,
         book.PublishingCompany,
         book.PublicationYear,
-        book.Edition);
+        book.Edition,
+        book.Subject);
     }
   }
 }

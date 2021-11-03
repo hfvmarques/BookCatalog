@@ -6,7 +6,6 @@ using BookCatalog.Api.DTOs;
 using BookCatalog.Api.Entities;
 using BookCatalog.Api.Repositores;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace BookCatalog.Api.Controllers
 {
@@ -15,27 +14,23 @@ namespace BookCatalog.Api.Controllers
   public class BooksController : ControllerBase
   {
     private readonly IBooksRepository repository;
-    private readonly ILogger<BooksController> logger;
 
-    public BooksController(IBooksRepository repository, ILogger<BooksController> logger)
+    public BooksController(IBooksRepository repository)
     {
       this.repository = repository;
-      this.logger = logger;
     }
 
     // GET /books
     [HttpGet]
-    public async Task<IEnumerable<BookDTO>> GetBooksAsync(string title = null)
+    public async Task<IEnumerable<BookDTO>> GetBooksAsync(string subject = null)
     {
       var books = (await repository.GetBooksAsync())
                   .Select(book => book.AsDTO());
 
-      if (!string.IsNullOrWhiteSpace(title))
+      if (!string.IsNullOrWhiteSpace(subject))
       {
-        books = books.Where(book => book.Title.Contains(title, StringComparison.OrdinalIgnoreCase));
+        books = books.Where(book => book.Subject.Contains(subject, StringComparison.OrdinalIgnoreCase));
       }
-
-      logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")}: Retrieved {books.Count()} books.");
 
       return books;
     }
@@ -65,7 +60,8 @@ namespace BookCatalog.Api.Controllers
         Author = bookDTO.Author,
         PublishingCompany = bookDTO.PublishingCompany,
         PublicationYear = bookDTO.PublicationYear,
-        Edition = bookDTO.Edition
+        Edition = bookDTO.Edition,
+        Subject = bookDTO.Subject
       };
 
       await repository.CreateBookAsync(book);
@@ -89,6 +85,7 @@ namespace BookCatalog.Api.Controllers
       existingBook.PublishingCompany = bookDTO.PublishingCompany;
       existingBook.PublicationYear = bookDTO.PublicationYear;
       existingBook.Edition = bookDTO.Edition;
+      existingBook.Subject = bookDTO.Subject;
 
       await repository.UpdateBookAsync(existingBook);
 

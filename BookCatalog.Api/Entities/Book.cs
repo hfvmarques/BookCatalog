@@ -10,5 +10,6 @@ namespace BookCatalog.Api.Entities
     public string PublishingCompany { get; set; }
     public int PublicationYear { get; set; }
     public int Edition { get; set; }
+    public string Subject { get; set; }
   }
 }
