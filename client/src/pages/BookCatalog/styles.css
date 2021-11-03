@@ -34,49 +34,50 @@
   margin-bottom: 1rem;
 }
 
-.bookCatalog-container ul {
-  display: grid;
-  grid-template-columns: repeat(4, 2fr);
-  grid-gap: 1rem;
-  list-style: none;
+table {
+  border-collapse: collapse;
+  width: 100%;
 }
 
-.bookCatalog-container ul li {
+table th {
+  font-size: medium;
+}
+
+.bookCatalog-container table tbody td {
   background: #ffffff;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  position: relative;
+  padding: 0.5rem;
+  position: relative;   
 }
 
-.bookCatalog-container ul li button {
+.titulo {
+  width: 26rem;
+}
+
+.autor {
+  width: 16rem;
+}
+
+.editora {
+  width: 10rem;
+}
+
+.anoPublicacao {
+  width: 6rem;
+}
+
+.edicao {
+  width: 4rem;
+}
+
+.bookCatalog-container table tbody td button {
+  width: 2rem;
   position: absolute;
-  right: 1.5rem;
-  top: 1.5rem;
+  right: 1rem;
+  top: 0.3rem;
   border: 0;
   background: transparent;
 }
 
-.bookCatalog-container ul li button + button{
-  top: 3.125rem;
-}
-
-.bookCatalog-container ul li button:hover {
-  opacity: 0.8;
-}
-
-.bookCatalog-container ul li strong {
-  display: grid;
-  grid-column: auto;
-  margin-bottom: 0rem;
-  color: #41414d;
-}
-
-.bookCatalog-container ul li p + strong {
-  margin-top: 1rem;
-}
-
-.bookCatalog-container ul li p {
-  color: #737380;
-  line-height: 1.5rem;
-  font-size: 1rem;
+.bookCatalog-container table tbody td button:hover {
+  opacity: 0.5;
 }

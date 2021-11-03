@@ -22,7 +22,7 @@ export default function Book() {
     if (bookId === '0') return
 
     loadBook()
-  })
+  }, bookId)
 
   async function loadBook() {
     try {
