@@ -8,6 +8,10 @@ import api from '../../services/api'
 export default function BookCatalog() {
 
   const [bookRepository, setBookRepository] = useState([])
+  const [searchSubject, setSearchSubject] = useState("")
+  const handleChange = event => {
+    setSearchSubject(event.target.value)
+  }
 
   const history = useHistory()
 
@@ -41,6 +45,12 @@ export default function BookCatalog() {
       <header>
         <img src={logoImage} alt="Catálogo de livros" />
         <span>Catálogo de Livros</span>
+        <input
+          className="searchField"
+          type="text"
+          placeholder="Busca por assunto"
+          value={searchSubject}
+          onChange={handleChange} />
         <Link className="button" to="/Book/0">Adicionar novo livro</Link>
       </header>
 
@@ -52,6 +62,7 @@ export default function BookCatalog() {
           <th>Editora</th>
           <th>Ano de Publicação</th>
           <th>Edição</th>
+          <th>Assunto</th>
           <th>Editar</th>
           <th>Deletar</th>
         </thead>
@@ -62,6 +73,7 @@ export default function BookCatalog() {
             <td className="editora">{book.publishingCompany}</td>
             <td className="anoPublicacao">{book.publicationYear}</td>
             <td className="edicao">{book.edition}ª</td>
+            <td className="assunto">{book.subject}</td>
             <td>
               <button onClick={() => editBook(book.id)} type="button">
                 <FiEdit size={20} color="#251FC5" />
@@ -75,28 +87,6 @@ export default function BookCatalog() {
           </tbody>
         ))}
       </table>
-      {/* <ul>
-        {bookRepository.sort((a, b) => a.title > b.title ? 1 : -1).map(book => (
-          <li key={book.id}>
-            <strong>Título:</strong>
-            <p>{book.title}</p>
-            <strong>Autor:</strong>
-            <p>{book.author}</p>
-            <strong>Editora:</strong>
-            <p>{book.publishingCompany}</p>
-            <strong>Ano de Publicação:</strong>
-            <p>{book.publicationYear}</p>
-            <strong>Edição:</strong>
-            <p>{book.edition}</p>
-            <button onClick={() => editBook(book.id)} type="button">
-              <FiEdit size={20} color="#251FC5" />
-            </button>
-            <button onClick={() => { if (window.confirm('Tem certeza que deseja apagar este livro?')) deleteBook(book.id) }} type="button">
-              <FiTrash2 size={20} color="#251FC5" />
-            </button>
-          </li>
-        ))}
-      </ul> */}
     </div>
   )
 }

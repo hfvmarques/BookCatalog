@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using BookCatalog.Api.Entities.Enums;
 
 namespace BookCatalog.Api.DTOs
 {
@@ -10,7 +11,8 @@ namespace BookCatalog.Api.DTOs
     string PublishingCompany,
     int PublicationYear,
     int Edition,
-    string Subject
+    string Subject,
+    BookType BookType
     );
   public record CreateBookDTO(
     [Required] string Title,
@@ -18,7 +20,8 @@ namespace BookCatalog.Api.DTOs
     [Required] string PublishingCompany,
     [Range(1, 9999)] int PublicationYear,
     [Range(1, 999)] int Edition,
-    [Required] string Subject
+    [Required] string Subject,
+    [Required] BookType BookType
     );
   public record UpdateBookDTO(
   [Required] string Title,
@@ -26,6 +29,7 @@ namespace BookCatalog.Api.DTOs
   [Required] string PublishingCompany,
   [Range(1, 9999)] int PublicationYear,
   [Range(1, 999)] int Edition,
-  [Required] string Subject
+  [Required] string Subject,
+  [Required] BookType BookType
   );
 }

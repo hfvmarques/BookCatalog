@@ -61,7 +61,8 @@ namespace BookCatalog.Api.Controllers
         PublishingCompany = bookDTO.PublishingCompany,
         PublicationYear = bookDTO.PublicationYear,
         Edition = bookDTO.Edition,
-        Subject = bookDTO.Subject
+        Subject = bookDTO.Subject,
+        BookType = bookDTO.BookType
       };
 
       await repository.CreateBookAsync(book);
@@ -86,6 +87,7 @@ namespace BookCatalog.Api.Controllers
       existingBook.PublicationYear = bookDTO.PublicationYear;
       existingBook.Edition = bookDTO.Edition;
       existingBook.Subject = bookDTO.Subject;
+      existingBook.BookType = bookDTO.BookType;
 
       await repository.UpdateBookAsync(existingBook);
 

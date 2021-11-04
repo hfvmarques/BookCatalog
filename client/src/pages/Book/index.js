@@ -14,6 +14,7 @@ export default function Book() {
   const [publishingCompany, setPublishingCompany] = useState('')
   const [publicationYear, setPublicationYear] = useState('')
   const [edition, setEdition] = useState('')
+  const [subject, setSubject] = useState('')
 
 
   const history = useHistory()
@@ -34,6 +35,7 @@ export default function Book() {
       setPublishingCompany(response.data.publishingCompany)
       setPublicationYear(response.data.publicationYear)
       setEdition(response.data.edition)
+      setSubject(response.data.subject)
 
     } catch (err) {
       alert('Erro ao recuperar livro a ser editado. Tente novamente')
@@ -49,7 +51,8 @@ export default function Book() {
       author,
       publishingCompany,
       publicationYear,
-      edition
+      edition,
+      subject
     }
 
     try {
@@ -103,6 +106,11 @@ export default function Book() {
             placeholder="Edition"
             value={edition}
             onChange={e => setEdition(e.target.value)}
+          />
+          <input
+            placeholder="Assunto"
+            value={subject}
+            onChange={e => setSubject(e.target.value)}
           />
           <button className="button" type="submit">{bookId === '0' ? 'Adicionar' : 'Atualizar'}</button>
         </form>

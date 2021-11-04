@@ -1,4 +1,5 @@
 using System;
+using BookCatalog.Api.Entities.Enums;
 
 namespace BookCatalog.Api.Entities
 {
@@ -11,5 +12,6 @@ namespace BookCatalog.Api.Entities
     public int PublicationYear { get; set; }
     public int Edition { get; set; }
     public string Subject { get; set; }
+    public BookType BookType { get; set; }
   }
 }

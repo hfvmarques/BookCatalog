@@ -14,7 +14,8 @@ namespace BookCatalog.Api
         book.PublishingCompany,
         book.PublicationYear,
         book.Edition,
-        book.Subject);
+        book.Subject,
+        book.BookType);
     }
   }
 }

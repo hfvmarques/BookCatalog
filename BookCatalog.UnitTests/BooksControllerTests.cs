@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BookCatalog.Api.Controllers;
 using BookCatalog.Api.DTOs;
 using BookCatalog.Api.Entities;
+using BookCatalog.Api.Entities.Enums;
 using BookCatalog.Api.Repositores;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -111,7 +112,9 @@ namespace BookCatalog.UnitTests
         Guid.NewGuid().ToString(),
         rand.Next(1000, 9999),
         rand.Next(1, 999),
-        Guid.NewGuid().ToString());
+        Guid.NewGuid().ToString(),
+        (BookType)rand.Next(1, 2)
+        );
 
       var controller = new BooksController(repositoryStub.Object);
 
@@ -143,7 +146,8 @@ namespace BookCatalog.UnitTests
         Guid.NewGuid().ToString(),
         existingBook.PublicationYear + 5,
         existingBook.Edition + 1,
-        Guid.NewGuid().ToString()
+        Guid.NewGuid().ToString(),
+        existingBook.BookType
       );
 
       var controller = new BooksController(repositoryStub.Object);
@@ -181,7 +185,8 @@ namespace BookCatalog.UnitTests
         PublishingCompany = Guid.NewGuid().ToString(),
         PublicationYear = rand.Next(1000, 9999),
         Edition = rand.Next(1, 999),
-        Subject = Guid.NewGuid().ToString()
+        Subject = Guid.NewGuid().ToString(),
+        BookType = (BookType)rand.Next(1, 2)
       };
     }
   }
