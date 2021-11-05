@@ -62,7 +62,8 @@ namespace BookCatalog.Api.Controllers
         PublicationYear = bookDTO.PublicationYear,
         Edition = bookDTO.Edition,
         Subject = bookDTO.Subject,
-        BookType = bookDTO.BookType
+        BookType = bookDTO.BookType,
+        Borrowed = bookDTO.Borrowed
       };
 
       await repository.CreateBookAsync(book);
@@ -70,7 +71,7 @@ namespace BookCatalog.Api.Controllers
       return CreatedAtAction(nameof(GetBookAsync), new { id = book.Id }, book.AsDTO());
     }
 
-    // PUT /items/{id}
+    // PUT /books/{id}
     [HttpPut("{id}")]
     public async Task<ActionResult> UpdateBookAsync(Guid id, UpdateBookDTO bookDTO)
     {
@@ -88,6 +89,7 @@ namespace BookCatalog.Api.Controllers
       existingBook.Edition = bookDTO.Edition;
       existingBook.Subject = bookDTO.Subject;
       existingBook.BookType = bookDTO.BookType;
+      existingBook.Borrowed = bookDTO.Borrowed;
 
       await repository.UpdateBookAsync(existingBook);
 

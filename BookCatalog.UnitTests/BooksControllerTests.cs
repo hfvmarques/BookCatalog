@@ -113,7 +113,8 @@ namespace BookCatalog.UnitTests
         rand.Next(1000, 9999),
         rand.Next(1, 999),
         Guid.NewGuid().ToString(),
-        (BookType)rand.Next(1, 2)
+        (BookType)rand.Next(1, 2),
+        Guid.NewGuid().ToString()
         );
 
       var controller = new BooksController(repositoryStub.Object);
@@ -147,7 +148,8 @@ namespace BookCatalog.UnitTests
         existingBook.PublicationYear + 5,
         existingBook.Edition + 1,
         Guid.NewGuid().ToString(),
-        existingBook.BookType
+        existingBook.BookType,
+        Guid.NewGuid().ToString()
       );
 
       var controller = new BooksController(repositoryStub.Object);
@@ -186,7 +188,8 @@ namespace BookCatalog.UnitTests
         PublicationYear = rand.Next(1000, 9999),
         Edition = rand.Next(1, 999),
         Subject = Guid.NewGuid().ToString(),
-        BookType = (BookType)rand.Next(1, 2)
+        BookType = (BookType)rand.Next(1, 2),
+        Borrowed = Guid.NewGuid().ToString()
       };
     }
   }

@@ -15,7 +15,8 @@ export default function Book() {
   const [publicationYear, setPublicationYear] = useState('')
   const [edition, setEdition] = useState('')
   const [subject, setSubject] = useState('')
-
+  const [bookType, setBookType] = useState('')
+  const [borrowed, setBorrowed] = useState('')
 
   const history = useHistory()
 
@@ -36,6 +37,8 @@ export default function Book() {
       setPublicationYear(response.data.publicationYear)
       setEdition(response.data.edition)
       setSubject(response.data.subject)
+      setBookType(response.data.bookType)
+      setBorrowed(response.data.borrowed)
 
     } catch (err) {
       alert('Erro ao recuperar livro a ser editado. Tente novamente')
@@ -52,7 +55,9 @@ export default function Book() {
       publishingCompany,
       publicationYear,
       edition,
-      subject
+      subject,
+      bookType,
+      borrowed
     }
 
     try {
@@ -83,27 +88,27 @@ export default function Book() {
 
         <form onSubmit={saveOrUpdate}>
           <input
-            placeholder="Title"
+            placeholder="Título"
             value={title}
             onChange={e => setTitle(e.target.value)}
           />
           <input
-            placeholder="Author"
+            placeholder="Autor"
             value={author}
             onChange={e => setAuthor(e.target.value)}
           />
           <input
-            placeholder="PublishingCompany"
+            placeholder="Editora"
             value={publishingCompany}
             onChange={e => setPublishingCompany(e.target.value)}
           />
           <input
-            placeholder="PublicationYear"
+            placeholder="Ano de publicação"
             value={publicationYear}
             onChange={e => setPublicationYear(e.target.value)}
           />
           <input
-            placeholder="Edition"
+            placeholder="Edição"
             value={edition}
             onChange={e => setEdition(e.target.value)}
           />
@@ -111,6 +116,16 @@ export default function Book() {
             placeholder="Assunto"
             value={subject}
             onChange={e => setSubject(e.target.value)}
+          />
+          <input
+            placeholder="Tipo de livro (1 - Físico / 2 - Digital)"
+            value={bookType}
+            onChange={e => setBookType(e.target.value)}
+          />
+          <input
+            placeholder="Emprestado"
+            value={borrowed}
+            onChange={e => setBorrowed(e.target.value)}
           />
           <button className="button" type="submit">{bookId === '0' ? 'Adicionar' : 'Atualizar'}</button>
         </form>

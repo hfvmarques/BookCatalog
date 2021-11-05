@@ -12,8 +12,10 @@ namespace BookCatalog.Api.DTOs
     int PublicationYear,
     int Edition,
     string Subject,
-    BookType BookType
+    BookType BookType,
+    string Borrowed
     );
+
   public record CreateBookDTO(
     [Required] string Title,
     [Required] string Author,
@@ -21,8 +23,10 @@ namespace BookCatalog.Api.DTOs
     [Range(1, 9999)] int PublicationYear,
     [Range(1, 999)] int Edition,
     [Required] string Subject,
-    [Required] BookType BookType
+    [Required] BookType BookType,
+    [Required] string Borrowed
     );
+
   public record UpdateBookDTO(
   [Required] string Title,
   [Required] string Author,
@@ -30,6 +34,7 @@ namespace BookCatalog.Api.DTOs
   [Range(1, 9999)] int PublicationYear,
   [Range(1, 999)] int Edition,
   [Required] string Subject,
-  [Required] BookType BookType
+  [Required] BookType BookType,
+  [Required] string Borrowed
   );
 }

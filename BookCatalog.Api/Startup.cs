@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using BookCatalog.Api.Repositores;
 using BookCatalog.Api.Settings;
@@ -73,6 +74,11 @@ namespace BookCatalog.Api
       services.AddMvc(options => options
       .EnableEndpointRouting = false)
       .SetCompatibilityVersion(CompatibilityVersion.Latest);
+
+      services.AddControllers().AddJsonOptions(o =>
+      {
+        o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
