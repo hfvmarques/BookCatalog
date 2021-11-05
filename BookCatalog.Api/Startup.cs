@@ -53,7 +53,7 @@ namespace BookCatalog.Api
       });
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookCatalog", Version = "v5" });
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookCatalog", Version = "v6" });
       });
 
       services.AddCors(options =>
@@ -88,7 +88,7 @@ namespace BookCatalog.Api
       {
         app.UseDeveloperExceptionPage();
         app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookCatalog v5"));
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookCatalog v6"));
         app.UseHttpsRedirection();
       }
 

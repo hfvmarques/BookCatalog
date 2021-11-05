@@ -8,7 +8,7 @@ import api from '../../services/api'
 export default function BookCatalog() {
 
   const [bookRepository, setBookRepository] = useState([])
-  const [searchSubject, setSearchSubject] = useState("")
+  const [searchSubject, setSearchSubject] = useState('')
   const handleChange = event => {
     setSearchSubject(event.target.value)
   }
@@ -66,7 +66,14 @@ export default function BookCatalog() {
           <th>Editar</th>
           <th>Deletar</th>
         </thead>
-        {bookRepository.sort((a, b) => a.title > b.title ? 1 : -1).map(book => (
+        {bookRepository.filter(book => {
+          if (searchSubject === "") {
+            return book
+          }
+
+          return book.subject.toLowerCase().includes(searchSubject.toLowerCase())
+
+        }).sort((a, b) => a.title > b.title ? 1 : -1).map(book => (
           <tbody key={book.id}>
             <td className="titulo">{book.title}</td>
             <td className="autor">{book.author}</td>
