@@ -1,5 +1,5 @@
 # BookCatalog
-## Catálogo de livros em RESTful Web API em .NET Core 5.0 e Reacjs para controle de livros
+## Catálogo de livros em RESTful Web API em .NET Core 5.0 e Reactjs para controle de livros
 
 ### Para rodar a aplicação, precisa estar com docker desktop instalado e funcionando e rodar os seguintes comandos:
 - docker network create mongocatalog
