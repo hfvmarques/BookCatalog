@@ -10,8 +10,6 @@ services:
         environment:
             - MONGO_INITDB_ROOT_USERNAME=mongoadmin
             - MONGO_INITDB_ROOT_PASSWORD=Pass#word1
-        # volumes: 
-        #     - mongodbdata:/data/db
 
     app:
         build: .
@@ -27,16 +25,6 @@ services:
         environment:
             MongoDBSettings__Host: mongo
             MongoDBSettings__Password: Pass#word1
-    # client:
-    #     image: webapp-client
-    #     restart: always
-    #     ports:
-    #         - "3000:3000"
-    #     volumes:
-    #         - ./../client:/client
-    #         - ./../client/node_modules
-    #     links:
-    #         - app
 volumes:
     pgdata:
         driver: local
