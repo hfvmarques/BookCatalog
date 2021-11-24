@@ -89,31 +89,37 @@ export default function Book() {
         <form onSubmit={saveOrUpdate}>
           <input
             placeholder="Título"
+            type="text"
             value={title}
             onChange={e => setTitle(e.target.value)}
           />
           <input
             placeholder="Autor"
+            type="text"
             value={author}
             onChange={e => setAuthor(e.target.value)}
           />
           <input
             placeholder="Editora"
+            type="text"
             value={publishingCompany}
             onChange={e => setPublishingCompany(e.target.value)}
           />
           <input
             placeholder="Ano de publicação"
+            type="number" min="1900"
             value={publicationYear}
             onChange={e => setPublicationYear(e.target.value)}
           />
           <input
             placeholder="Edição"
+            type="number" min="1"
             value={edition}
             onChange={e => setEdition(e.target.value)}
           />
           <input
             placeholder="Assunto"
+            type="text"
             value={subject}
             onChange={e => setSubject(e.target.value)}
           />
@@ -124,6 +130,7 @@ export default function Book() {
           />
           <input
             placeholder="Emprestado"
+            type="text"
             value={borrowed}
             onChange={e => setBorrowed(e.target.value)}
           />

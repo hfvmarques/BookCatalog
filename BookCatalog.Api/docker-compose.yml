@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+    mongo:
+        image: mongo:latest
+        container_name: mongo
+        ports:
+            - 27017:27017
+        restart: always
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+            - MONGO_INITDB_ROOT_PASSWORD=Pass#word1
+        # volumes: 
+        #     - mongodbdata:/data/db
+
+    app:
+        build: .
+        container_name: bookcatalog
+        ports:
+            - 8080:80
+        volumes:
+            - .:/usr/app/BookCatalog.Api
+        links:
+            - mongo
+        depends_on:
+            - mongo
+        environment:
+            MongoDBSettings__Host: mongo
+            MongoDBSettings__Password: Pass#word1
+    # client:
+    #     image: webapp-client
+    #     restart: always
+    #     ports:
+    #         - "3000:3000"
+    #     volumes:
+    #         - ./../client:/client
+    #         - ./../client/node_modules
+    #     links:
+    #         - app
+volumes:
+    pgdata:
+        driver: local

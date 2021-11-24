@@ -79,28 +79,41 @@
       "type": "docker-run",
       "label": "docker-run: debug",
       "dependsOn": [
-        "docker-build: debug"
+        "docker-build"
       ],
       "dockerRun": {
-        "os": "Windows"
+        "env": {
+          "DEBUG": "*",
+          "NODE_ENV": "development"
+        }
       },
-      "netCore": {
-        "appProject": "${workspaceFolder}/BookCatalog.Api/BookCatalog.Api.csproj",
-        "enableDebugging": true,
-        "configureSsl": false
+      "node": {
+        "package": "${workspaceFolder}/client/package.json",
+        "enableDebugging": true
       }
     },
     {
       "type": "docker-run",
       "label": "docker-run: release",
       "dependsOn": [
-        "docker-build: release"
+        "docker-build"
       ],
-      "dockerRun": {
-        "os": "Windows"
+      "platform": "node",
+      "node": {
+        "package": "${workspaceFolder}/client/package.json"
+      }
+    },
+    {
+      "type": "docker-build",
+      "label": "docker-build",
+      "platform": "node",
+      "dockerBuild": {
+        "dockerfile": "${workspaceFolder}/client/Dockerfile",
+        "context": "${workspaceFolder}/client",
+        "pull": true
       },
-      "netCore": {
-        "appProject": "${workspaceFolder}/BookCatalog.Api/BookCatalog.Api.csproj"
+      "node": {
+        "package": "${workspaceFolder}/client/package.json"
       }
     }
   ]
